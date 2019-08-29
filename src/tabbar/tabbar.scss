@@ -1,0 +1,28 @@
+.tabs {
+  position: absolute;
+  bottom: calc(100vh - 80px);
+  left: 61px;
+  width: calc(100vw - 66px);
+  color: rgba(255, 255, 255, 0.226);
+  font-size: 1.3em;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.6);
+  padding-left: 14px;
+}
+
+.tabs span {
+  padding: 2.5px 10px 0 10px;
+  float: left;
+  cursor: default;
+  background-color: rgb(40, 40, 40); /*Set background color to remove transparency and allow covering the bottom border.*/
+
+  color: rgba(255, 255, 255, 0.226);
+  border: none;
+  margin-bottom: initial;
+}
+
+.videos-tab { /*The initially selected tab on app startup.*/
+  color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.6);
+  border-bottom: none;
+  margin-bottom: -1px;
+}

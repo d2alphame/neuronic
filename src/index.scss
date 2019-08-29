@@ -1,0 +1,73 @@
+.root {
+  height: 100%;
+  width: 100%;
+}
+
+.app {
+  height: 100%;
+  width: 100%;
+}
+
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+  user-select: none;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+:focus {
+  outline: 1px solid rgb(255, 3, 129);
+  outline-offset: 3px;
+}
+
+body {
+  border: 1px solid rgb(255, 3, 129);
+  background-color: rgb(40, 40, 40);
+  color: whitesmoke;
+  font-family: 'Segoe UI', sans-serif;
+  overflow: hidden;
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+.content-wrapper{
+  overflow-x: hidden;
+  padding-left: 10px;
+  padding-right: 2px;
+
+  height: calc(100vh - 85px);
+  width: calc(100vw - 57px); /*5px space to the left, 2px space on the right, plus 50px for the sidebar.*/
+  position: fixed;
+  left: 55px; /*50px sidebar plus 5px gutter*/
+  top: 84px; /*Positioned below the title bar*/
+}
+
+.other-sections{
+  display: none;
+  border: none;
+  overflow-x: hidden;
+  padding-left: 10px;
+  padding-right: 2px;
+
+  height: calc(100vh - 85px);
+  width: calc(100vw - 57px); /*5px space to the left, 2px space on the right, plus 50px for the sidebar.*/
+  position: fixed;
+  left: 55px; /*50px sidebar plus 5px gutter*/
+  top: 84px; /*Positioned below the title bar*/
+}
+
+.w3-panel {
+  max-width: 100%;
+}   
+
+.w3-panel p {
+  overflow-x: scroll;
+  white-space: nowrap;
+}

@@ -1,0 +1,17 @@
+#base-buttons {
+  padding: 30px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+#base-buttons > button {
+  margin: 20px;
+  height: 40px;
+  border-radius: 1000px;
+  padding: 0 20px;
+  background-color: brown;
+  color: white;
+  border-color: rgb(224, 28, 28);
+}
