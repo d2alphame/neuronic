@@ -1,16 +1,16 @@
 import React from 'react';
 import VideoCard from './video-card';
 
-function VideoFolder(props) {
+function VideoGroup(props) {
   const {folder} = props;
 
   return (
     <section className='video-group'>
-      <h4>
+      <h4 className='video-group__title'>
         {folder.name}
       </h4>
 
-      <div className='inline-blocks-wrapper'>
+      <div className='video-group__wrapper'>
         {
           folder.files.map((file, index)=> {
             return (
@@ -29,4 +29,4 @@ function VideoFolder(props) {
   )
 }
 
-export default VideoFolder;
+export default VideoGroup;

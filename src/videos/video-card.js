@@ -4,16 +4,16 @@ import React from 'react';
 */
 function VideoCard(props) {
   return (
-    <div className="video-card inline-block-element" 
+    <div className="video-card" 
          id={props.id}>
-      <video className="thumbnail"
+      <video className="video-card__thumbnail"
              onClick={props.loadVideo}
              data-card-id={props.id}>
         <source src={props.path} />
       </video>
-      <img src="./icons/play.png" alt="" />
+      <img src="./icons/play.png" alt="" className="video-card__play-icon" />
 
-      <div className="w3-panel">
+      <div className="w3-panel video-card__label">
         <p className="video-title">{props.name}</p>
         <p className="video-length">00:00:00</p>
       </div>

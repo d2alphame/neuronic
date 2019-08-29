@@ -1,63 +1,76 @@
 import React from 'react';
 import './videos.scss';
-import VideoFolder from './video-folder';
+import VideoGroup from './video-folder';
 
 let electronApp;
 
-let body = document.querySelector('body'),
-    clickBlocker;
-
 //Declare the following global variables for use in functions loadVideo and closeVideo.
-var card, cardClone, thumbnail, cardLabel, initialP, winDimension, frame, leftP, topP, videoCard, 
-    titleBar;
+var card, cardClone, thumbnail, clickBlocker, /*initialPosition, winDimension, 
+    frame, leftP, topP, cardLabel,*/componentRoot, videoCard, titleBar;
+
+const setInitialClonePosition = (card)=> {
+  const id = "initial-card-clone-position";
+
+  /*const styleExists = document.head.querySelector(`#${id}`);
+  if ( styleExists )
+    document.head.removeChild(styleExists);*/
+
+  let styleElem = document.head.querySelector(`#${id}`);
+  if (!styleElem) {
+    styleElem = document.createElement('style');
+    styleElem.id = id;
+    document.head.prepend(styleElem);
+  }
+
+  //const styleSheet = styleElem.sheet;
+
+  const initialPosition = card.getBoundingClientRect();
+  const styleRule = `
+    #videos[data-component-root] .is-about-to-play,
+    #videos[data-component-root] .is-closing {
+      left: ${initialPosition.left - 1}px;
+      top: ${initialPosition.top - 1}px;
+    }`;
+
+  styleElem.innerHTML = styleRule;
+  //styleSheet.insertRule(styleRule, 0); //insert at index 0 of styleSheet.cssRules 'array'.
+}    
 
 function loadVideo(event) {
+  componentRoot = document.querySelector('#videos[data-component-root]');
+
   const id = event.target.dataset.cardId;
   card = document.getElementById(id);
   cardClone = card.cloneNode(true);
-
   cardClone.id = `${id}-clone`;
-  cardClone.classList.remove("inline-block-element");
-  
-  initialP = card.getBoundingClientRect();
-  cardClone.style.left = `${initialP.left - 1}px`; //Subtract 1px of the Window border
-  cardClone.style.top = `${initialP.top - 1}px`; //1px window border.
-  cardClone.classList.add('video-play-window');  
+  cardClone.classList.add('is-play-window', 'is-about-to-play');
+  setInitialClonePosition(card);  
 
-  thumbnail = cardClone.querySelector('.thumbnail');
-  cardLabel = cardClone.querySelector('div');
+  thumbnail = cardClone.querySelector('.video-card__thumbnail');
 
-  body.appendChild(cardClone);
+  componentRoot.appendChild(cardClone);
   card.style.opacity = '0';
 
-  setTimeout(()=>{ //Set a delay after creating the card clone before starting transition to ensure animation is shown.
+  setTimeout(()=>{
     //Dim the window in the background and prevent clicking outside the video frame.
     clickBlocker = document.querySelector(".click-blocker");
     clickBlocker.style.display = "block";
-    setTimeout(()=>{
-      clickBlocker.style.opacity = "0.56";
-      titleBar = document.querySelector('.titleBar');
-      titleBar.style.opacity = "0.54";
-    }, 500);
+    clickBlocker.style.opacity = "0.56";
+    titleBar = document.querySelector('.titleBar');
+    titleBar.style.opacity = "0.54";
 
-    //cardClone.style.left = '';
-    //cardClone.style.top = '';
-    cardClone.classList.add('video-play-window--is-playing');
-
-    setTimeout(()=>{
-      thumbnail.classList.add('video-play-window--is-playing__video');
-
-      cardLabel.classList.add('video-play-window--is-playing__label');
-
-    }, 100)
+    cardClone.classList.add('is-playing');
+    cardClone.classList.remove('is-about-to-play');
 
     //Play the video.
     setTimeout(()=>{
       thumbnail.controls = true;
+      thumbnail.focus();
       thumbnail.play();
-    }, 600);
+    }, 900);
   }, 100);
 }
+
 
 document
   .querySelectorAll(`video`)
@@ -81,21 +94,23 @@ document
 
 const closeVideo = ()=> {
   if (!cardClone) return;
+
   thumbnail.pause();
+  thumbnail.controls = false;
   clickBlocker.style.opacity = "0";
   titleBar.style.opacity = "initial";
 
-  cardClone.classList.add('video-play-window--is-closing');
-  cardClone.style.left = `${initialP.left - 1}px`; //Subtract 1px of the Window border
-  cardClone.style.top = `${initialP.top - 1}px`;
+  setInitialClonePosition(card);
+  cardClone.classList.add('is-closing');
+  cardClone.classList.remove('is-playing');
 
   setTimeout(()=>{
     card.style.opacity = '1';
-    //console.log(body.id + '\n\n' + cardClone.id);
-    body.removeChild(cardClone);
+    componentRoot.removeChild(cardClone);
+    card.focus();
     cardClone = null;
     clickBlocker.style.display = "none";
-  }, 1001);
+  }, 1100);
 }
 
 
@@ -120,15 +135,16 @@ class Videos extends React.Component {
     }
 
     return (
-      <div className="content-wrapper">
+      <div id="videos" className="content-wrapper"
+           data-component-root>
         {
           folders.map((folder)=> {
             return (
-              <VideoFolder 
+              <VideoGroup 
                 key={folder.path}
                 folder={folder} 
                 loadVideo={loadVideo}>
-              </VideoFolder>
+              </VideoGroup>
             );
           })
         }
