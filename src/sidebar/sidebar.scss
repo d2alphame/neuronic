@@ -1,5 +1,4 @@
-
-.sideBar {
+nav#sidebar {
   height: calc(100vh - 79px);
   width: 50px;
   padding: 10px 0;
@@ -8,40 +7,37 @@
   top: 78px;
   background-color: rgb(30, 30, 30);
   box-shadow: -1px 1px 1px 1px rgba(0, 0, 0, 0.562) inset, -1px 1px 1px 1px rgba(0, 0, 0, 0.377) inset;
-}
+  
+  .sidebar-icon {
+    width: 46px;
+    height: 40px;
+    padding: 5px;
+    margin: 20px 0;
+    border-left: 5px solid transparent;
+      
+    &:hover, &:focus {
+      padding: 3px; /*Increase the icon size.*/ 
+    }
+    
+    &:active {
+      padding: 5px; /*Restore default padding on click to achieve bounce-like effect*/
+    }
 
-.sidebar-icons {
-  width: 46px;
-  height: 40px;
-  padding: 5px;
-  margin: 20px 0;
-  border-left: 5px solid transparent;
-}
+    &.is-selected {
+      background-color: rgba(255, 3, 129, 0.15);
+      border-left-color: rgba(255, 3, 129, 0.85);
+    }
+  }
 
-.sidebar-icons>img {
-  height: 30px;
-}
+  .sidebar-top {
+    position: absolute;
+    top: 5px;
+    z-index: 2;
+  }
 
-.sidebar-icons>img:hover, .sidebar-icons>img:focus{transform: scale(1.1);}
-.sidebar-icons>img:active{transform: scale(1);}
-
-.selected-sidebar-icon {
-  background-color: rgba(255, 3, 129, 0.15);
-  border-left-color: rgba(255, 3, 129, 0.85);
-}
-
-.sidebar-top {
-  position: absolute;
-  top: 5px;
-  z-index: 2;
-}
-
-.sidebar-top > .sidebar-icons {
-  margin-bottom: 30px;
-}
-
-.sidebar-bottom {
-  position: absolute;
-  bottom: -5px;
-  z-index: 2;
+  .sidebar-bottom {
+    position: absolute;
+    bottom: -5px;
+    z-index: 2;
+  }
 }

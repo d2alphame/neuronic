@@ -1,4 +1,4 @@
-#videos[data-component-root] {
+main#videos {
   $root: &;
 
   video:focus {
@@ -63,6 +63,12 @@
     
     &__label {
       overflow: hidden;
+      max-width: 100%;
+        
+      p {
+        overflow-x: scroll;
+        white-space: nowrap;
+      }
     }
     
     &.is-play-window {

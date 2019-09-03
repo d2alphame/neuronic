@@ -1,33 +1,55 @@
 import React from 'react';
 import './sidebar.scss';
 
-class Sidebar extends React.Component {
-  render() {
-    return (
-      <div className="sideBar">
-        <div className="sidebar-top">
-          <div className="sidebar-icons selected-sidebar-icon videos-icon">
-            <img src="./icons/Sidebar/videos.png" alt='' />
-          </div>
-          <div className="sidebar-icons audios-icon">
-            <img src="/icons/Sidebar/songs.png" alt='' />
-          </div>
-          <div className="sidebar-icons photos-icon">        
-            <img src="/icons/Sidebar/photos1.png" alt='' />
-          </div>
-        </div>
+const {useEffect} = React;
 
-        <div className="sidebar-bottom">
-          <div className="sidebar-icons settings-icon">        
-            <img src="/icons/Sidebar/settings1.png" alt='' />
-          </div>
-          <div className="sidebar-icons info-icon">        
-            <img src="/icons/Sidebar/info1.png" alt='' />
-          </div>
-        </div>
+function Sidebar(props) {
+  const {switchView, currentView} = props;
+
+  useEffect(()=> {
+    let previousSelection = document
+      .querySelector('.sidebar-icon.is-selected');
+
+    if (previousSelection)
+      previousSelection
+        .classList
+        .remove('is-selected');
+
+    document
+      .querySelector(`.sidebar-icon.is-${currentView}`)
+      .classList
+      .add('is-selected');
+  });
+
+  return (
+    <nav id="sidebar">
+      <div className="sidebar-top">
+        <img className="sidebar-icon is-videos"
+             src="./icons/Sidebar/videos.png" alt=''
+             onClick={()=> switchView('videos')} 
+        />
+        <img className="sidebar-icon is-music"
+             src="/icons/Sidebar/songs.png" alt=''
+             onClick={()=> switchView('music')}
+        />       
+        <img className="sidebar-icon is-photos"
+             src="/icons/Sidebar/photos1.png" alt=''
+             onClick={()=> switchView('photos')}
+        />
       </div>
-    );
-  };
+
+      <div className="sidebar-bottom">       
+        <img className="sidebar-icon is-settings"
+             src="/icons/Sidebar/settings1.png" alt=''
+             onClick={()=> switchView('settings')}
+        />
+        <img className="sidebar-icon is-about" 
+             src="/icons/Sidebar/info1.png" alt=''
+             onClick={()=> switchView('about')}
+        />
+      </div>
+    </nav>
+  );
 }
 /*
 var otherSections = document.querySelector("#other-sections"),

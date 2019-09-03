@@ -1,5 +1,6 @@
-.tabs {
+#tabbar {
   position: absolute;
+  display: flex;
   bottom: calc(100vh - 80px);
   left: 61px;
   width: calc(100vw - 66px);
@@ -7,22 +8,20 @@
   font-size: 1.3em;
   border-bottom: 1px solid rgba(0, 0, 0, 0.6);
   padding-left: 14px;
-}
-
-.tabs span {
-  padding: 2.5px 10px 0 10px;
-  float: left;
-  cursor: default;
-  background-color: rgb(40, 40, 40); /*Set background color to remove transparency and allow covering the bottom border.*/
-
-  color: rgba(255, 255, 255, 0.226);
-  border: none;
-  margin-bottom: initial;
-}
-
-.videos-tab { /*The initially selected tab on app startup.*/
-  color: rgba(255, 255, 255, 0.8);
-  border: 1px solid rgba(0, 0, 0, 0.6);
-  border-bottom: none;
-  margin-bottom: -1px;
+  
+  .tab {
+    background-color: transparent;
+    padding: 8px 20px 5px;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.226);
+    border: none;
+    
+    &.is-current-tab {
+      color: rgba(255, 255, 255, 0.8);
+      background-color: rgb(40, 40, 40); /*Set background color to allow covering the bottom border.*/
+      border: 1px solid rgba(0, 0, 0, 0.6);
+      border-bottom: none;
+      margin: 0 10px -1px 10px;
+    } 
+  }
 }

@@ -1,6 +1,8 @@
 import React from 'react';
 import './videos.scss';
-import VideoGroup from './video-folder';
+import VideoGroup from './video-group';
+
+const {useEffect} = React;
 
 let electronApp;
 
@@ -26,8 +28,8 @@ const setInitialClonePosition = (card)=> {
 
   const initialPosition = card.getBoundingClientRect();
   const styleRule = `
-    #videos[data-component-root] .is-about-to-play,
-    #videos[data-component-root] .is-closing {
+    main#videos .is-about-to-play,
+    main#videos .is-closing {
       left: ${initialPosition.left - 1}px;
       top: ${initialPosition.top - 1}px;
     }`;
@@ -37,7 +39,7 @@ const setInitialClonePosition = (card)=> {
 }    
 
 function loadVideo(event) {
-  componentRoot = document.querySelector('#videos[data-component-root]');
+  componentRoot = document.querySelector('main#videos');
 
   const id = event.target.dataset.cardId;
   card = document.getElementById(id);
@@ -56,7 +58,7 @@ function loadVideo(event) {
     clickBlocker = document.querySelector(".click-blocker");
     clickBlocker.style.display = "block";
     clickBlocker.style.opacity = "0.56";
-    titleBar = document.querySelector('.titleBar');
+    titleBar = document.querySelector('#title-bar');
     titleBar.style.opacity = "0.54";
 
     cardClone.classList.add('is-playing');
@@ -114,53 +116,48 @@ const closeVideo = ()=> {
 }
 
 
-class Videos extends React.Component {
-  constructor(props) {
-    super(props);
+function Videos(props) {
+  useEffect(()=> {
+    electronApp = window.electron.remote.app;
+  });
 
-    electronApp = props.electron.remote.app;
+  const {folders} = props;
+
+  if (!folders) return null;
+
+  if (folders.length < 1) {
+    window.alert(
+      `No supported videos found in the default Videos directory.
+      ${electronApp.getPath('videos')}`
+    );
+    return null;
   }
 
-  render() {
-    const {folders} = this.props;
-
-    if (!folders) return null;
-
-    if (folders.length < 1) {
-      window.alert(
-        `No supported videos found in the default Videos directory.
-        ${electronApp.getPath('videos')}`
-      );
-      return null;
-    }
-
-    return (
-      <div id="videos" className="content-wrapper"
-           data-component-root>
-        {
-          folders.map((folder)=> {
-            return (
-              <VideoGroup 
-                key={folder.path}
-                folder={folder} 
-                loadVideo={loadVideo}>
-              </VideoGroup>
-            );
-          })
-        }
+  return (
+    <main id="videos">
+      {
+        folders.map((folder)=> {
+          return (
+            <VideoGroup 
+              key={folder.path}
+              folder={folder} 
+              loadVideo={loadVideo}>
+            </VideoGroup>
+          );
+        })
+      }
+    
+      <button className="close-video"
+              onClick={(e)=>{
+                closeVideo();
+                //e.target.style.display = "none";
+              }}>
+        Close
+      </button>
       
-        <button className="close-video"
-                onClick={(e)=>{
-                  closeVideo();
-                  //e.target.style.display = "none";
-                }}>
-          Close
-        </button>
-        
-        <div className="click-blocker"></div>
-      </div>
-    );
-  };  
+      <div className="click-blocker"></div>
+    </main>
+  );
 }
 
 export default Videos;

@@ -13,7 +13,7 @@ function VideoCard(props) {
       </video>
       <img src="./icons/play.png" alt="" className="video-card__play-icon" />
 
-      <div className="w3-panel video-card__label">
+      <div className="video-card__label">
         <p className="video-title">{props.name}</p>
         <p className="video-length">00:00:00</p>
       </div>

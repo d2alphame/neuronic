@@ -38,8 +38,7 @@ app.on('ready', function(){
   mainWindow.loadURL('http://localhost:3000');
 
   mainWindow.webContents.on('dom-ready', ()=>{
-    //mainWindow.webContents.send('showAppPaths', appPaths);
-    mainWindow.webContents.openDevTools();
+    //mainWindow.webContents.openDevTools();
 
     ///Get Local files.
     let localVideos = getLocalMedia();

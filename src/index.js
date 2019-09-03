@@ -19,10 +19,11 @@ https://feranmi.name.ng
 Package home page:
 https://www.npmjs.com/package/sky-stream`);
 
-var electron = window.require("electron"),
-    ipc = electron.ipcRenderer,
+let electron = window.require("electron");
+var ipc = electron.ipcRenderer,
     thisWindow = electron.remote.getCurrentWindow();
 
+window.electron = electron;
 window.ipc = ipc; //Expose these variables...
 window.thisWindow = thisWindow //...to the iframe.
 
@@ -32,10 +33,17 @@ class App extends React.Component {
 
     this.state = {
       view: 'videos',
-      videoFolders: null
+      videoFolders: null,
+      musicFiles: null
     };
 
     ipc.on('videos-fetched', this.onVidsFetched);
+    ipc.on('songs-fetched', this.onSongsFetched);
+    ipc.on('error', (event, errorMessage) => {
+      let errorText = document.createElement("p")
+      errorText.innerHTML = "ERROR:- " + errorMessage;
+      document.documentElement.appendChild(errorText);
+    });
   }
 
   onVidsFetched = (event, folders)=> {
@@ -43,21 +51,35 @@ class App extends React.Component {
       videoFolders: folders
     });
   }
+
+  onSongsFetched = (event, files)=> {
+    this.setState({
+      musicFiles: files
+    });
+  }
+
+  switchView = (target)=> {
+    this.setState({
+      view: target
+    })
+  }
   
-  getContent = (currentView)=> {
-    switch (currentView) {
+  getContent = (targetView, props={})=> {
+    switch (targetView) {
       case 'videos':
-        return <Videos folders={this.state.videoFolders} electron={electron}></Videos>;
+        return <Videos {...props}
+                  folders={this.state.videoFolders}
+                />
       case 'music':
-        return <Music></Music>;
+        return <Music {...props} />;
       case 'photos':
-        return <Photos></Photos>;
+        return <Photos {...props} />;
       case 'settings':
-        return <Settings></Settings>;
+        return <Settings {...props} />;
       case 'about':
-        return <About></About>;
+        return <About {...props} />;
       default:
-        return;
+        return <p>Something went wrong switching the view.</p>;
     }  
   }
 
@@ -65,13 +87,18 @@ class App extends React.Component {
     const currentView = this.state.view;
     return (
       <div className="app">
-        <Titlebar></Titlebar>
-        <Tabbar></Tabbar>
-        <Sidebar></Sidebar>
-        <main>
-          {this.getContent(currentView)}
-        </main>
-        <iframe title="other-sections" className="other-sections" src=""></iframe>
+        <Titlebar />
+
+        <Tabbar
+          currentView={currentView}
+        />
+
+        <Sidebar 
+          switchView={this.switchView}
+          currentView={currentView}
+        />
+
+        {this.getContent(currentView)}
       </div>
     );
   }
@@ -80,15 +107,9 @@ class App extends React.Component {
 ReactDOM.render(<App />, document.getElementById('root'));
 
 //Disable drag and drop.
-document.ondragstart = (event)=>{
+document.ondragstart = (event)=> {
   if (!event.target.classList.contains('draggable')){
     event.preventDefault();
     return false;
   }
 }
-
-ipc.on('error', (event, errorMessage) => {
-  let errorText = document.createElement("p")
-  errorText.innerHTML = "ERROR:- " + errorMessage;
-  document.documentElement.appendChild(errorText);
-});

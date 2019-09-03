@@ -1,79 +1,52 @@
-
-.titleBar {
-  height: 40px;
-  width: 100%;
+#title-bar {
   -webkit-app-region: drag;
-  position: sticky;
-  top: 0px;
+  position: fixed;
   z-index: 2;
+  height: 40px;
+  top: 0px;
+  width: 100%;
   transition: opacity 1s ease;
-}
+  //display: flex;
 
-.appIconDiv {
-  position: absolute;
-  background-color: rgb(255, 3, 129);
-  width: 55px;
-  height: 55px;
-  /*padding: 20px;*/
-  border-radius: 5px 55px 55px 55px;
-  top: 10px;
-  left: 10px;
-}
+  .app-icon {
+    position: absolute;
+    background-color: rgb(255, 3, 129);
+    width: 55px;
+    height: 55px;
+    /*padding: 20px;*/
+    border-radius: 5px 55px 55px 55px;
+    top: 10px;
+    left: 10px;
 
-.appIcon {
-  position: relative;
-  top: 10%;
-  left: 9%;
-  width: 80%;
-  height: 70%;
-}
+    &__img {
+      position: relative;
+      top: 10%;
+      left: 9%;
+      width: 80%;
+      height: 70%;
+    }
+  }
 
-.appTitle {
-  position: absolute;
-  color: rgba(236, 163, 163, 0.733);
-  font-weight: bold;
-  font-size: 1.2em;
-  top: 11px;
-  left: 75px;
-  padding: 0;
-  margin-top: 0;
-}
+  .app-title {
+    position: absolute;
+    color: rgba(236, 163, 163, 0.733);
+    font-weight: bold;
+    font-size: 1.2em;
+    top: 11px;
+    left: 75px;
+    padding: 0;
+    margin-top: 0;
 
-.appTitle > a {
-  text-decoration: none;
-  font-style: italic;
-  font-weight: lighter;
-  color: rgba(197, 155, 155, 0.6);
-  font-size: 0.7em;
-  margin-left: 5px;
-  position: relative;
-  bottom: 1px;
-  -webkit-app-region: no-drag;
+    &__author-link {
+      text-decoration: none;
+      font-style: italic;
+      font-weight: lighter;
+      color: rgba(207, 135, 135, 0.6);
+      font-size: 0.7em;
+      margin-left: 5px;
+      position: relative;
+      bottom: 1px;
+      -webkit-app-region: no-drag;
+    }
+  }
 }
-
-.windowButtons {
-  float: right;
-  height: 30px;
-  width: 45px;
-  padding: 6.5px 15px;
-  -webkit-app-region: no-drag;
-  margin-top: 0.4px;
-}
-
-.windowButtonsImg {
-  height: 15px;
-  width: 15px;
-}
-
-.minimizeImg {
-  padding-top: 5px;
-}
-
-/*.closeImg{
-  height: 18px;
-  width: 20px;
-}
-
-.closeBtn {
-  padding: 5px 20px 8px 12px;
-}*/

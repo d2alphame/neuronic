@@ -3,9 +3,9 @@ import './about.scss';
 
 function About() {
     return (
-      <div id="content-wrapper">
+      <main id="about">
         Created by Stac.
-      </div>
+      </main>
     );
 };
 

@@ -1,0 +1,43 @@
+#window-buttons {
+  position: absolute;
+  right: 1px;
+  top: 0;
+  -webkit-app-region: no-drag;
+  display: flex;
+  justify-content: space-between;
+
+  .window-button {
+    display: block;
+    height: 30px;
+    width: 45px;
+    background-color: transparent;
+    border: none;
+    transition: background-color .3s linear; 
+
+    &:hover {
+      background-color: rgb(255, 3, 129);
+      
+      img {
+        opacity: 1;
+      }
+    }
+
+    &.is-minimize {
+      
+    }
+
+    /*&.is-close {
+      height: 18px;
+      width: 20px;
+    }
+    
+    &.is-maximize {
+      
+    }*/
+
+    img {
+      height: 50%;
+      opacity: 0.6;
+    }
+  }
+}

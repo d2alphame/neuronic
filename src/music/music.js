@@ -1,12 +1,12 @@
 import React from 'react';
 import './music.scss';
 
-class Music extends React.Component {
-  render() {
-    return (
-      <div className="content-wrapper"></div>
-    );
-  };
+function Music(props) {
+  return (
+    <main id="music">
+      Music component works!!
+    </main>
+  );
 }
 
 export default Music;
