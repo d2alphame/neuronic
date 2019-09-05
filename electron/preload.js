@@ -1,0 +1,1 @@
+window.electronPreloaded = require('electron');

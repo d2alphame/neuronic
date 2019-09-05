@@ -1,0 +1,10 @@
+main#music {
+  $root: &;
+
+  .player {
+    position: absolute;
+    bottom: 5px;
+    left: 10%;
+    width: 80%;
+  }
+}

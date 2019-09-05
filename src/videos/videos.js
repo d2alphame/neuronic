@@ -75,7 +75,7 @@ function loadVideo(event) {
 
 
 document
-  .querySelectorAll(`video`)
+  .querySelectorAll('.video')
   .forEach((video)=> video.addEventListener('durationchange', (e)=>{
     if (e.target.duration > 20)
       e.target.currentTime = 10;

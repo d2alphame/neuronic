@@ -38,11 +38,11 @@ class App extends React.Component {
     };
 
     ipc.on('videos-fetched', this.onVidsFetched);
-    ipc.on('songs-fetched', this.onSongsFetched);
+    ipc.on('music-fetched', this.onMusicFetched);
     ipc.on('error', (event, errorMessage) => {
       let errorText = document.createElement("p")
       errorText.innerHTML = "ERROR:- " + errorMessage;
-      document.documentElement.appendChild(errorText);
+      document.documentElement.prepend(errorText);
     });
   }
 
@@ -52,7 +52,7 @@ class App extends React.Component {
     });
   }
 
-  onSongsFetched = (event, files)=> {
+  onMusicFetched = (event, files)=> {
     this.setState({
       musicFiles: files
     });
@@ -70,14 +70,21 @@ class App extends React.Component {
         return <Videos {...props}
                   folders={this.state.videoFolders}
                 />
+
       case 'music':
-        return <Music {...props} />;
+        return <Music {...props}
+                  files={this.state.musicFiles}
+               />;
+
       case 'photos':
         return <Photos {...props} />;
+
       case 'settings':
         return <Settings {...props} />;
+
       case 'about':
         return <About {...props} />;
+        
       default:
         return <p>Something went wrong switching the view.</p>;
     }  
