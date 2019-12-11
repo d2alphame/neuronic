@@ -4,7 +4,7 @@ import './photos.scss';
 function Photos(props){
   return (
     <main id="photos">
-      Photos component works!
+      Work in progress...
     </main>
   );
 }

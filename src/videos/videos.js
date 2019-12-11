@@ -52,6 +52,8 @@ function loadVideo(event) {
 
   componentRoot.appendChild(cardClone);
   card.style.opacity = '0';
+  document.querySelector('.close-video')
+    .style.display = 'block';
 
   setTimeout(()=>{
     //Dim the window in the background and prevent clicking outside the video frame.
@@ -96,6 +98,9 @@ document
 
 const closeVideo = ()=> {
   if (!cardClone) return;
+
+  document.querySelector('.close-video')
+    .style.display = 'none';
 
   thumbnail.pause();
   thumbnail.controls = false;

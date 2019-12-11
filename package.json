@@ -11,11 +11,9 @@
     "redux": "^4.0.4"
   },
   "scripts": {
-    "react": "react-scripts start",
-    "electron": "electron ./electron/main.js",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "react-start": "react-scripts start",
+    "react-build": "react-scripts build && Robocopy /MIR build backend/react-app",
+    "react-test": "react-scripts test"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -33,6 +31,6 @@
     ]
   },
   "devDependencies": {
-    "electron-packager": "^14.0.4"
+    
   }
 }

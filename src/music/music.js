@@ -22,6 +22,7 @@ function Music(props) {
 
   return (
     <main id="music">
+      Work in progress...
       {
         files.map((file)=> { 
           return (
@@ -39,7 +40,7 @@ function Music(props) {
         className="player"
         >
         <source src={nowPlaying} />
-      </audio>);
+      </audio>
     </main>
   );
 }
