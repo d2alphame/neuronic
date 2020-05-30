@@ -1,6 +1,6 @@
 *__This is a only a template README. To be editted soon...__*
 
-# Project Title
+# Neronic
 
 One Paragraph of project description goes here
 
