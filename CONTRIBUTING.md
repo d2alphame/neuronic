@@ -1,5 +1,5 @@
-# Volunteer.ng
-Team Denver's project for Start.ng
+# Neuronic
+Media Player that streams media from Google Drive, Dropbox, and Onedrive
 
 ## FRONT-END
 This section defines the guidelines and methodologies to used for the front-end of this project. 
